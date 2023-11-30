@@ -73,7 +73,15 @@ def on_ws_message(ws, raw_message: str):
     :type raw_message: str
     """
 
-    print(raw_message)
+    message_data = {
+        "time": datetime.utcnow().strftime("%H:%M:%S.%f")[:-3],
+        "length": len(raw_message),
+        "message": raw_message,
+    }
+
+    formatted_output = f"[{message_data['time']}] {message_data['message']}"
+
+    print(formatted_output)
 
 
 def on_ws_error(ws, error):
