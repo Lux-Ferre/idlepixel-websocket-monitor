@@ -131,6 +131,11 @@ def log_ws_message(raw_message: str, received: bool):
     print(formatted_output)
 
 
+def send_ws_message(ws, message: str):
+    log_ws_message(message, False)
+    ws.send(message)
+
+
 if __name__ == "__main__":
     env_consts = get_env_consts()
 
