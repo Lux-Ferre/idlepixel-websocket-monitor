@@ -73,15 +73,7 @@ def on_ws_message(ws, raw_message: str):
     :type raw_message: str
     """
 
-    message_data = {
-        "time": datetime.utcnow().strftime("%H:%M:%S.%f")[:-3],
-        "length": len(raw_message),
-        "message": raw_message,
-    }
-
-    formatted_output = f"[{message_data['time']}] {message_data['message']}"
-
-    print(formatted_output)
+    log_ws_message(raw_message, True)
 
 
 def on_ws_error(ws, error):
@@ -122,6 +114,21 @@ def on_ws_open(ws):
     print("Signature acquired.")
     print("Logging in...")
     ws.send(f"LOGIN={signature}")
+
+
+def log_ws_message(raw_message: str, received: bool):
+    message_data = {
+        "time": datetime.utcnow().strftime("%H:%M:%S.%f")[:-3],
+        "length": len(raw_message),
+        "message": raw_message,
+        "received": received,
+    }
+
+    direction_indicator = "↓" if received else "↑"
+
+    formatted_output = f"{direction_indicator}[{message_data['time']}] {message_data['message']}"
+
+    print(formatted_output)
 
 
 if __name__ == "__main__":
