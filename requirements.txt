@@ -1,0 +1,5 @@
+requests
+playwright
+beautifulsoup4
+websocket-client
+rel
